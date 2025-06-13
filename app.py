@@ -6,7 +6,7 @@ import os
 # Step 1: Run Predictive_Model.py
 def run_predictive_model():
     print("🚀 Running Predictive_Model.py...")
-    subprocess.run([r"venv\Scripts\python.exe", "Predictive_Model.py"], check=True)
+    subprocess.run(["python", "Predictive_Model.py"], check=True)
     print("✅ Finished running Predictive_Model.py.\n")
 
 # Step 2: Start FastAPI backend
