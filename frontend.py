@@ -5,6 +5,9 @@ import requests
 st.set_page_config(page_title="Market Campaign Predictor")
 st.title("💰 Market Campaign Subscription Predictor")
 
+# 👉 Replace this with your actual FastAPI Render URL
+API_URL = "https://your-fastapi-app-name.onrender.com/predict/"
+
 # Input fields
 fields = {
     'age': st.number_input("Age", min_value=18, max_value=100, value=30),
@@ -30,9 +33,8 @@ fields = {
 if st.button("Predict Subscription"):
     with st.spinner("Sending data to model..."):
         try:
-            # POST request to FastAPI backend
-            response = requests.post("http://localhost:8000/predict/", json=fields)
-            response.raise_for_status()  # raise exception for 4xx/5xx errors
+            response = requests.post(API_URL, json=fields)
+            response.raise_for_status()
 
             result = response.json()
 
