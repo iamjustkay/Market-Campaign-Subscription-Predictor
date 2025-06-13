@@ -6,7 +6,7 @@ st.set_page_config(page_title="Market Campaign Predictor")
 st.title("💰 Market Campaign Subscription Predictor")
 
 # 👉 Replace this with your actual FastAPI Render URL
-API_URL = "https://your-fastapi-app-name.onrender.com/predict/"
+API_URL = "https://market-campaign-subscription-predictor-gxbx.onrender.com/predict/"
 
 # Input fields
 fields = {
