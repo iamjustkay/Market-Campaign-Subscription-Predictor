@@ -2,8 +2,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import pandas as pd
-from fastapi.middleware.cors import CORSMiddleware
-
 
 # Load model and preprocessor
 model = joblib.load("RF_model.pkl")
@@ -30,19 +28,10 @@ class ClientData(BaseModel):
 
 app = FastAPI()
 
-# CORS middleware setup
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Or restrict to your frontend's Render URL
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-@app.get("/predict/")
+@app.post("/predict/")
 def predict(data: ClientData):
     input_df = pd.DataFrame([data.dict()])
-    
+
     # Feature engineering (as done in training)
     month_order = {'jan':1, 'feb':2, 'mar':3, 'apr':4, 'may':5, 'jun':6,
                    'jul':7, 'aug':8, 'sep':9, 'oct':10, 'nov':11, 'dec':12}
@@ -51,7 +40,7 @@ def predict(data: ClientData):
 
     # Transform with preprocessor
     input_processed = preprocessor.transform(input_df)
-    
+
     # Predict
     prediction = model.predict(input_processed)[0]
     proba = model.predict_proba(input_processed)[0, 1]

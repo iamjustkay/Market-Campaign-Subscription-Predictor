@@ -5,9 +5,6 @@ import requests
 st.set_page_config(page_title="Market Campaign Predictor")
 st.title("💰 Market Campaign Subscription Predictor")
 
-# 👉 Replace this with your actual FastAPI Render URL
-API_URL = "https://market-campaign-subscription-predictor-gxbx.onrender.com/predict/"
-
 # Input fields
 fields = {
     'age': st.number_input("Age", min_value=18, max_value=100, value=30),
@@ -33,14 +30,15 @@ fields = {
 if st.button("Predict Subscription"):
     with st.spinner("Sending data to model..."):
         try:
-            response = requests.post(API_URL, json=fields)
-            response.raise_for_status()
+            # POST request to FastAPI backend
+            response = requests.post("http://localhost:8000/predict/", json=fields)
+            response.raise_for_status()  # raise exception for 4xx/5xx errors
 
             result = response.json()
 
             st.success("✅ Prediction complete!")
             st.markdown(f"**Subscribed:** {'✅ Yes' if result['subscribed'] else '❌ No'}")
-            st.markdown(f"**Probability of Subscription:** `{result['probability']:.2%}`")
+            st.markdown(f"**Probability of Subscription:** {result['probability']:.2%}")
 
         except requests.exceptions.RequestException as e:
             st.error(f"❌ Error: Could not connect to prediction server.\n{e}")
