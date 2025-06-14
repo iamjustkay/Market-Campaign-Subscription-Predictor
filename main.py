@@ -39,7 +39,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/predict/")
+@app.get("/predict/")
 def predict(data: ClientData):
     input_df = pd.DataFrame([data.dict()])
     
