@@ -27,11 +27,13 @@ fields = {
     'poutcome': st.selectbox("Previous Campaign Outcome", ["unknown", "success", "failure", "other"])
 }
 
+API_URL = "https://market-campaign-subscription-predictor-gxbx.onrender.com/predict/"
+
 if st.button("Predict Subscription"):
     with st.spinner("Sending data to model..."):
         try:
             # POST request to FastAPI backend
-            response = requests.post("http://localhost:8000/predict/", json=fields)
+            response = requests.post(API_URL, json=fields)
             response.raise_for_status()  # raise exception for 4xx/5xx errors
 
             result = response.json()
