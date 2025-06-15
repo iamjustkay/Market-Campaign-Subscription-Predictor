@@ -27,7 +27,7 @@ fields = {
     'poutcome': st.selectbox("Previous Campaign Outcome", ["unknown", "success", "failure", "other"])
 }
 
-API_URL = "https://market-campaign-subscription-predictor-gxbx.onrender.com/predict/"
+API_URL = "https://market-campaign-subscription-predictor-l3ak.onrender.com/predict/"
 
 if st.button("Predict Subscription"):
     with st.spinner("Sending data to model..."):
